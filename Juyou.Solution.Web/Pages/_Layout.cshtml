@@ -1,0 +1,132 @@
+﻿@using Juyou.Solution.Model.Models;
+@using Juyou.Solution.Model;
+@using Juyou.Solution.Common;
+@{
+    UserInfo user = ViewBag.User as UserInfo;
+    List<ModuleInfo> modulelist = ViewData["modulelist"] as List<ModuleInfo>;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   @*  <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="bookmark" href="/favicon.ico" /> *@
+    <meta charset="UTF-8">
+    <title>@ViewData["Title"]</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="~/layui/css/layui.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <script type="text/javascript" src="~/layui/layui.js"></script>
+    <script type="text/javascript" src="~/js/jquery.js"></script>
+    <script type="application/javascript" src="~/js/site.js"></script>
+  
+    @RenderSection("Styles", required: false)  
+</head>
+<body class="layui-layout-body" leftmargin=0 topmargin=0 oncontextmenu='return false'  ondragstart='return false'>
+    @* <body class="layui-layout-body" leftmargin=0 topmargin=0  ondragstart='return false'> *@
+    <div class="layui-layout layui-layout-admin">
+        <!-- 头部区域 -->
+        <div class="layui-header">
+            <div class="layui-logo"><a href="https://www.saberopen.com/" style="color:#009688;">@SystemSet.SystemName</a></div>
+            <ul class="layui-nav" lay-filter="test" style="left:185px;">
+                @if (modulelist != null && modulelist.Count > 0)
+                {
+                    foreach (var module in modulelist.Where(x => x.ParentId == 0))
+                    {
+                        var childdren = modulelist.Where(x => x.ParentId == module.Id);
+                        var navItemed = string.Empty;
+                        var itemSelected = childdren.FirstOrDefault(x => x.Id == ViewBag.ModuleID);
+                        if (ViewBag.ModuleID == module.Id || itemSelected != null)
+                        {
+                            navItemed = "layui-this";
+                        }
+                        <li class="layui-nav-item @navItemed">
+                            <a href="@module.Url">@module.Name</a>
+                            @if (childdren.Count() > 0)
+                            {
+                                <dl class="layui-nav-child">
+                                    @foreach (var child in childdren)
+                                    {
+                                        <dd>
+                                            <a href="@child.Url" style="@(itemSelected != null && itemSelected.Id == child.Id ? "font-weight:bold;" : "")">@child.Name</a>
+                                        </dd>
+                                    }
+                                </dl>
+                            }
+                        </li>
+                    }
+                }
+            </ul>
+           
+                <ul class="layui-nav layui-layout-right">
+                @if (user != null)
+                {
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">@(user != null ? user.Name : "")</a>
+                        <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" onclick="basemsg()">Basic information</a></dd>
+                            <dd><a href="javascript:;" onclick="editMyself(@user.Id)">Modify</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="/Account/LoginOut">Sign out</a>
+                </li>
+                }
+                else
+                {
+                      <li class="layui-nav-item">
+                        <a href="/Account/Index">Sign in</a></li>
+                }
+                </ul>
+           
+        </div>
+       
+        <!-- 内容区域 -->
+        <div class="layui-body" style="left:0px;bottom:0px !important">
+            @RenderBody()
+        </div>
+
+        <!-- 底部固定区域 -->
+        @*<div class="layui-footer">
+                © @SystemSet.SystemName - @DateTime.Now.Year
+            </div>*@
+    </div>
+    <script>
+        var layer
+        layui.use('layer', function () {
+            layer = layui.layer;
+        });
+
+        var basemsg = function () {
+            layer.open({
+                type: 2,
+                title: 'Base Information',
+                shadeClose: false,
+                shade: 0.8,
+                area: ['400px', '300px'],
+                content: '/Users/UserMessage'
+            });
+        }
+
+        editMyself = function (id) {
+            layer.open({
+                type: 2,
+                title: "Modify Information",
+                shadeClose: false,
+                shade: 0.8,
+                area: ['500px', '300px'],
+                content: '/Users/ModifyUser?id=' + id
+            });
+        }
+
+        function emptySelectSection() {
+            if (document.selection != null) {
+                document.selection.empty();
+            }
+        }
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

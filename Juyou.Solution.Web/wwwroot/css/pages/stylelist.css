@@ -1,0 +1,16 @@
+﻿.layui-form-label {
+    padding: 9px 5px;
+    width: auto;
+}
+
+.layui-table-cell {
+    text-align: left;
+    max-height: 60px;
+    white-space: normal;
+    line-height: 15px;
+    
+}
+
+.layui-table img {
+    max-width: 100%
+}

@@ -1,0 +1,45 @@
+﻿@using Juyou.Solution.Model.Models;
+@model VwLightstyle
+@{ ViewData["Title"] = "Show Style";
+    Layout = null;
+   
+    }
+ <html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    @Html.Partial("StyleHeader")
+
+</head>
+
+<body style="margin:0 0 0 0;background-color:black">
+    <table cellpadding="0" cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <canvas id="canvas_id" width="1280" height="284" style="width: 853.333px; height: 189.667px;" onclick="AddClash()"> </canvas>
+
+                    <input id="VARIANT" name="variant" type="hidden"  value="0">
+                    <input id="style" name="style" type="hidden"  value="@(Model!= null ? Model.Code : "")">
+                    <span id="error_message" style="display:none"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">
+                    <div style="margin: 0 auto;">
+                        <input id="swing_speed_input" name="swing_speed_input" type="hidden" value="0">
+                        <input id="VARIANT" name="variant" type="hidden" size="6" value="0" />
+                        <span id="error_message" style="display:none"></span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/javascript" src="~/js/pages/showstyle.js">
+      
+        
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,190 @@
+﻿<script src="~/js/lightsaber/Base.js"></script>
+<script src="~/js/lightsaber/Colors.js"></script>
+<script src="~/js/lightsaber/Functions.js"></script>
+<script src="~/js/lightsaber/Transitions.js"></script>
+<script src="~/js/lightsaber/Layers.js"></script>
+<script src="~/js/lightsaber/Models.js"></script>
+<script id="vertex-shader" type="x-shader/x-vertex">
+    precision highp float;
+    attribute vec2 a_position;
+    varying vec2 v_position;
+    uniform float u_width;
+    uniform float u_height;
+
+    void main() {
+        v_position = a_position * vec2(u_width, u_height);
+        gl_Position = vec4(a_position, 0, 1);
+    }
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+    precision highp float;
+    uniform float u_value;
+    uniform float u_time;
+    uniform float l_value;
+    uniform float pix_value ;
+    varying vec2 v_position;
+    uniform float u_width;
+    uniform float u_height;
+    uniform sampler2D sampler;
+
+    $VARIABLES$
+
+    vec3 A = vec3(0,3,0);
+    vec3 B = vec3(0,l_value,0);
+
+    float get_point(vec3 p) {
+       vec3 pa = p - A, ba = B - A;
+       return clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
+    }
+
+    int get_led(vec3 p) {
+      return int(get_point(p) * pix_value);
+    }
+
+    float blade(vec3 p, bool tangent) {
+       vec3 pa = p - A, ba = B - A;
+       float h = clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
+       vec3 tmp = pa - ba * h;
+       float l2 = dot(tmp, tmp);
+       //   float R = 0.08;
+       float R = 0.09;
+        if (tangent && l2 >= R*R) {
+         return sqrt(l2 - R*R);
+       }  else {
+         return sqrt(l2) - R;
+       }
+    }
+
+    float handle(vec3 p) {
+       vec2 h = vec2(.15, 0.7);
+       p.y -= 3.65;
+       vec2 d = abs(vec2(length(p.xz),p.y)) - h;
+       return min(max(d.x,d.y),0.0) + length(max(d,0.0));
+    }
+
+    float map(vec3 p, bool tangent) {
+      return min(blade(p, tangent), handle(p));
+    }
+
+
+    vec3 getBladeColor(vec3 pos) {
+        return texture2D(sampler, vec2(get_point(pos), 0.5)).rgb;
+    }
+
+    float march(vec3 start, vec3 dir, out vec3 haze_color) {
+      haze_color = vec3(0,0,0);
+      float dist = 0.0;
+      float last_dist = 0.0;
+      float last_d = 0.0;
+      bool hit = false;
+      float haze = 1.0;
+      for (int i = 0; i < 100; i++) {
+        vec3 p =start + dir * dist;
+        float hilt_dist = handle(p);
+        float blade_dist = blade(p, !hit);
+        float d = min(hilt_dist, blade_dist);
+
+        if (dist > 20.0) return 10000.0;
+        if (d < 0.00001 * dist) {
+          if (d < 0.0) {
+            hit = true;
+    //        dist = last_dist + (dist - last_dist) * (last_d / (last_d - d));
+            dist = last_dist;
+            continue;
+          }
+          return dist;
+        }
+        if (get_led(p) > 0) {
+          // haze_color += getBladeColor(p) * clamp(0.002 / (blade_dist*blade_dist), 0.0, 1.0);
+
+          // haze_color += getBladeColor(p) * 0.0005 / (blade_dist*blade_dist*blade_dist) * d;
+
+          float haze_m = clamp(0.004 / (blade_dist*blade_dist), 0.0, 1.0);
+          haze_color += getBladeColor(p) * haze_m * haze;
+          haze *= (1.0 - haze_m);
+        }
+        last_d = d;
+        last_dist = dist;
+        dist += d;
+      }
+      if (hit) return dist;
+      return -1.0;
+    }
+
+
+    vec3 getNormal(vec3 p) {
+      float E = 0.00001;
+      vec3 X = vec3(E,0.0,0.0);
+      vec3 Y = vec3(0.0,E,0.0);
+      vec3 Z = vec3(0.0,0.0,E);
+    //  return normalize(vec3(map(p + X, false) - map(p - X, false),
+    //                        map(p + Y, false) - map(p - Y, false),
+    //                        map(p + Z, false) - map(p - Z, false)));
+
+      float D = map(p, false);
+      return normalize(vec3(map(p + X, false) - D,
+                            map(p + Y, false) - D,
+                            map(p + Z, false) - D));
+    }
+
+
+    void main() {
+        vec3 light = vec3(-5.0, 5.0, -5.0);
+        vec3 eye = vec3(0.0, 0.0, -5.0);
+        vec3 dir = normalize(
+                vec3((v_position.x) / u_width,
+                     (v_position.y) / u_width, 1.0));
+        mat3 rot = mat3(sin(u_value), 0.0, -cos(u_value),
+                        0.0, 1.0, 0.0,
+                        cos(u_value), 0.0, sin(u_value));
+        float angle = u_value / 7.777;
+        mat3 rot2 = mat3(1.0, 0.0,0.0,
+                        0.0, sin(angle), -cos(angle),
+                        0.0, cos(angle), sin(angle));
+        rot = rot2 * rot;
+        eye = rot * eye;
+        dir = rot * dir;
+    //    light = rot * light;
+
+        vec3 haze_color;
+        float x = march(eye, dir, haze_color);
+        vec3 hp = eye + dir * x;
+        vec3 color = vec3(1,1,1);
+        vec3 color2 = getBladeColor(hp);
+        if (blade(hp, false) > handle(hp)) {
+          color = vec3(0.3,0.3,0.3);
+          color2 = vec3(0);
+        }
+
+        vec3 normal = getNormal(hp);
+        vec3 light_dir = light - hp;
+        float light_dist2 = dot(light_dir, light_dir);
+        light_dir = normalize(light_dir);
+        float l = dot(light_dir, normal) * 5.0;
+
+        l = max(l, 0.0);
+        l /= sqrt(light_dist2);
+        l += 0.1;  // ambient
+        color *= l;
+        color += color2 * 2.0;
+
+        vec3 reflection = reflect(dir, normal);
+        float l2 = max(dot(reflection, light_dir), 0.0);
+        color += vec3(200.0) * pow(l2, 128.0);
+        vec3 haze = vec3(0.01, 0.01, 0.01);
+        float haze_mix = x < 0.0 ? 0.0 : pow(0.95, x);
+        color = haze_mix * color + (1.0 - haze_mix) * haze;
+        color += haze_color;
+
+        // Clip to white
+        color += vec3(dot(max(color - vec3(1), vec3(0)), vec3(0.33)));
+        // color += vec3(dot(max(color - vec3(1), 0.0), vec3(0.299, 0.587, 0.114)));
+        // color += vec3(max(dot(color, vec3(0.299, 0.587, 0.114)) - 1.0, 0.0));
+
+        color = sqrt(color);
+        gl_FragColor = vec4(color, 1.0);
+    }
+</script>
+
+<script src="~/js/lightsaber/StyleEngine.js"></script>

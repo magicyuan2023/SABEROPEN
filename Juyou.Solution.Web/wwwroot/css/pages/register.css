@@ -1,0 +1,28 @@
+﻿.manage-login-body {
+   /* background: url("../../images/loginbackend.jpg") no-repeat 0% 0%/cover;
+    background-color: rgba(20, 12, 22, 0.1)*/
+}
+
+.manage-loginpage {
+    height: 350px;
+    width: 450px;
+    padding: 20px;
+    position: absolute;
+    top: calc(50% - 175px);
+    left: calc(50% - 200px);
+    background-color: rgba(239, 239, 239, 0.7);
+    text-align: center;
+    border-radius: 10px;
+}
+
+    .manage-loginpage h1 {
+        font-size: 32px;
+    }
+
+.layui-input {
+    width: 297px;
+}
+
+.layui-form-select {
+    width: 300px;
+}

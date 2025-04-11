@@ -1,0 +1,37 @@
+﻿
+
+<div class="layui-panel" id="savedialog" style="display:none;z-index:10000000">
+
+    <form class="layui-form" method="post" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="padding:9px 0px;">Name:</label>
+            <div class="layui-input-inline" style="margin:9px 0px 10px 0px;">
+                <input type="text" name="Name" value="@(Model != null ? Model.Name : "")" required lay-verify="required|name" placeholder="Please enter th name" autocomplete="off" class="layui-input layui-form-text" style="width:250px" />
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="padding:9px 0px;">Description:</label>
+            <div class="layui-input-inline" style="margin:0px 0px 10px 0px;">
+                <textarea name="Desc" required lay-verify="required|desc" placeholder="Please enter th Description" class="layui-textarea" style="width:250px" rows="3">@(Model != null ? Model.Desc : "")</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="@((int)ViewData["Readonly"] == 1 ? "display:none" : "")">
+            <label class="layui-form-label" style="padding:9px 0px;">To share:</label>
+            <div class="layui-input-inline" style="margin:0px 0px 10px 0px;">
+                <input id="shared" type="checkbox" name="Shared" lay-skin="switch" lay-text="Yes|No" @(Model != null && Model.Shared ? "checked" : "") />
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div style="text-align:center">
+                <input type="hidden" id="Id" name="Id" value="@(Model != null ? Model.Id.ToString() : "0")" />
+                <input type="hidden" id="Readonly" name="Readonly" value="@(ViewData["readonly"])" />
+                <button class="layui-btn" lay-submit lay-filter="*">Submit</button>
+                <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="~/js/pages/v4pro/savestyle.js"></script>

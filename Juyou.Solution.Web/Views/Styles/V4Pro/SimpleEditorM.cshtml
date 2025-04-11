@@ -1,0 +1,370 @@
+﻿@using Juyou.Solution.Model.Models;
+@model VwLightstyle
+@{
+    ViewData["Title"] = "Style Simple Editor";
+    Layout = null;
+
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Style Simple Editor</title>
+    <link rel="stylesheet" href="~/layui/css/layui.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <script type="text/javascript" src="~/layui/layui.js"></script>
+    <script type="text/javascript" src="~/js/jquery.js"></script>
+    <link rel="stylesheet" href="~/css/lightsaber.css">
+    <link rel="stylesheet" href="~/css/pages/simpleeditor.css">
+    @Html.Partial("StyleHeader")
+    <script src="~/js/pages/v4pro/StyleGenerator.js"></script>
+    <script src="~/js/pages/v4pro/styleeditor.js"></script>
+    <script src="~/js/pages/v4pro/simpleeditor.js"></script>
+    <style>
+
+        option {
+            font-size: 11px;
+            min-height: 12px;
+            height: 12px;
+            padding: 0px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div style="margin:0 auto;">
+        <form method="post" enctype="multipart/form-data" name="enhance" id="enhance">
+            <div id="EnhanceTop">
+                <div class="previewer">
+                    <table width="100%" border="0">
+                        <tbody>
+
+                            <tr>
+                                <td valign="top" style="text-align:center">
+                                    <div style="margin:0 auto;background-color:black;">
+                                        <canvas id="canvas_id" width="1200" height="187" style="width: 1200px; height: 187px;"> </canvas>
+                                    </div>
+                                   <div style="padding:8px;">
+                                    <input id="style" name="style" type="hidden" value="">
+                                        <input id="swing_speed_input" name="swing_speed_input" type="hidden" value="0">
+                                    <input id="VARIANT" name="variant" type="hidden" size="6" value="0" />
+                                    <input id="POWER_BUTTON" name="on" type="button" value="Power" onclick="ClickPower()" style="background-color: green;width:60px;color:white;">
+                                    <input id="save" type="button" value="Save" onclick="showSaveDialog(false,['350px','380px'])" style="width:60px;" />
+                                    @*                                     <input id="download" type="button" value="Download" onclick="showSaveDialog(true)" style="width:100px;" />
+                                    *@        
+                                    </div>
+                                    <span style="margin-left: 20px;"><span id="error_message"></span></span>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="enhanceBackground">
+                <div id="Options" class="optionsScreen">
+                    <div id="DuplexBuilder" style="display: block;">
+                        <h1 style="color:#eee;">Blade Customization</h1>
+
+                        <p class="clearFloat"></p>
+                        <div>
+                            <div class="layui-row">
+                                <div class="layui-row">
+                                    <label for="duplexStyle1">Style:</label>
+                                </div>
+                                <div class="layui-row">
+                                    <ul>
+                                        <li>
+                                            <select name="duplexStyle1" id="duplexStyle1" onchange="onStyleChanged(this.id)" style="min-width:300px;">
+                                                <option value="Stable" selected="selected">Stable</option>
+                                                <option value="Unstable">Unstable</option>
+                                                <option value="Unstable-2">Unstable-2</option>
+                                                <option value="Pulse">Pulse</option>
+                                                <option value="Pulse-2">Pulse-2</option>
+                                                <option value="Rainbow">Rainbow</option>
+                                                <option value="Rainbow-2">Rainbow-2</option>                                               
+                                                <option value="Gradient(2)">Gradient(2)</option>
+                                                <option value="Gradient(3)">Gradient(3)</option>
+                                                <option value="Gradient(4)">Gradient(4)</option>
+                                                <option value="Fire">Fire</option>
+                                                <option value="Gradient Fire">Gradient Fire</option>
+                                                <option value="Stripe Fire">Stripe Fire</option>
+                                                <option value="HumpFlicker">HumpFlicker</option>
+                                                <option value="HumpFlicker-2">HumpFlicker-2</option>
+                                                <option value="RandomFlicker">RandomFlicker</option>
+                                                <option value="RandomFlicker-2">RandomFlicker-2</option>
+                                                <option value="AudioFlicker">AudioFlicker</option>
+                                                <option value="AudioFlicker-2">AudioFlicker-2</option>
+                                                <option value="Static Fire">Static Fire</option>
+                                                <option value="Stripe">Stripe</option>
+                                                <option value="BrownNoiseFlicker">BrownNoiseFlicker</option>
+                                                <option value="BrownNoiseFlicker-2">BrownNoiseFlicker-2</option>
+                                                <option value="Strobe Fire">Strobe Fire</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                   
+                                </div>
+                            </div>
+                            <div id="div_bladeColor" class="layui-row OptionItem" style="display:none">
+                                <div class="layui-row">
+                                    <label>Colors:</label>
+                                </div>
+                                <div class="layui-row">
+                                    <ul>
+                                        <li style="width:40%;">
+                                            <select name="bladeColor1" id="bladeColor1" onchange="previewBladeStyle()" style="min-width:150px;">
+                                                <option value="Rgb&lt;255,0,0&gt;">Red</option>
+                                                <option value="Rgb&lt;255,14,0&gt;">OrangeRed</option>
+                                                <option value="Rgb&lt;255,68,0&gt;">DarkOrange</option>
+                                                <option value="Rgb&lt;255,97,0&gt;">Orange</option>
+                                                <option value="Rgb&lt;180,130,0&gt;">Gold</option>
+                                                <option value="Rgb&lt;255,255,0&gt;">Yellow</option>
+                                                <option value="Rgb&lt;108,255,0&gt;">GreenYellow</option>
+                                                <option value="Rgb&lt;0,255,0&gt;">Green</option>
+                                                <option value="Rgb&lt;55,255,169&gt;">Aquamarine</option>
+                                                <option value="Rgb&lt;0,255,255&gt;">Cyan</option>
+                                                <option value="Rgb&lt;0,135,255&gt;">DeepSkyBlue</option>
+                                                <option value="Rgb&lt;2,72,255&gt;">DodgerBlue</option>
+                                                <option value="Rgb&lt;0,0,255&gt;" selected="selected">Blue</option>
+                                                <option value="Rgb&lt;30,60,200&gt;">IceBlue</option>
+                                                <option value="Rgb&lt;80,50,210&gt;">Indigo</option>
+                                                <option value="Rgb&lt;115,15,240&gt;">Purple</option>
+                                                <option value="Rgb&lt;118,0,194&gt;">DeepPurple</option>
+                                                <option value="Rgb&lt;255,0,255&gt;">Magenta</option>
+                                                <option value="Rgb&lt;255,0,75&gt;">DeepPink</option>
+                                                <option value="Rgb&lt;100,100,150&gt;">Silver</option>
+                                                <option value="Rgb&lt;85,85,200&gt;">Glacier</option>
+                                                <option value="Rgb&lt;55,255,0&gt;">Chartreuse</option>
+                                                <option value="Rgb&lt;223,239,255&gt;">AliceBlue</option>
+                                                <option value="Rgb&lt;239,239,255&gt;">GhostWhite</option>
+                                                <option value="Rgb&lt; 255,36,118&gt;">HotPink</option>
+                                                <option value="Rgb&lt;255,55,19&gt;">Coral</option>
+                                                <option value="Rgb&lt;255,199,119&gt;">Moccasin</option>
+                                                <option value="Rgb&lt;255,244,157&gt;">LemonChiffon</option>
+                                                <option value="Rgb&lt;255, 244, 244&gt;">Snow</option>
+                                                <option value="Rgb&lt;255,31,15&gt;">Tomato</option>
+                                                <option value="Rgb&lt;14,57,118&gt;">SteelBlue</option>
+                                                <option value="Rgb&lt;255,255,255&gt;">White</option>
+                                                <option value="Rgb&lt;0,0,0&gt;">Black</option>
+                                                <option value="Custom">Custom</option>
+                                            </select>
+                                        </li>
+                                        <li id="li_color2" style="display:none;width:40%;" class="OptionItem">
+                                            <select name="bladeColor2" id="bladeColor2" onchange="previewBladeStyle()" style="min-width:150px;">
+                                                <option value="Rgb&lt;255,0,0&gt;">Red</option>
+                                                <option value="Rgb&lt;255,14,0&gt;">OrangeRed</option>
+                                                <option value="Rgb&lt;255,68,0&gt;">DarkOrange</option>
+                                                <option value="Rgb&lt;255,97,0&gt;">Orange</option>
+                                                <option value="Rgb&lt;180,130,0&gt;">Gold</option>
+                                                <option value="Rgb&lt;255,255,0&gt;">Yellow</option>
+                                                <option value="Rgb&lt;108,255,0&gt;">GreenYellow</option>
+                                                <option value="Rgb&lt;0,255,0&gt;">Green</option>
+                                                <option value="Rgb&lt;55,255,169&gt;">Aquamarine</option>
+                                                <option value="Rgb&lt;0,255,255&gt;">Cyan</option>
+                                                <option value="Rgb&lt;0,135,255&gt;">DeepSkyBlue</option>
+                                                <option value="Rgb&lt;2,72,255&gt;">DodgerBlue</option>
+                                                <option value="Rgb&lt;0,0,255&gt;" selected="selected">Blue</option>
+                                                <option value="Rgb&lt;30,60,200&gt;">IceBlue</option>
+                                                <option value="Rgb&lt;80,50,210&gt;">Indigo</option>
+                                                <option value="Rgb&lt;115,15,240&gt;">Purple</option>
+                                                <option value="Rgb&lt;118,0,194&gt;">DeepPurple</option>
+                                                <option value="Rgb&lt;255,0,255&gt;">Magenta</option>
+                                                <option value="Rgb&lt;255,0,75&gt;">DeepPink</option>
+                                                <option value="Rgb&lt;100,100,150&gt;">Silver</option>
+                                                <option value="Rgb&lt;85,85,200&gt;">Glacier</option>
+                                                <option value="Rgb&lt;55,255,0&gt;">Chartreuse</option>
+                                                <option value="Rgb&lt;223,239,255&gt;">AliceBlue</option>
+                                                <option value="Rgb&lt;239,239,255&gt;">GhostWhite</option>
+                                                <option value="Rgb&lt; 255,36,118&gt;">HotPink</option>
+                                                <option value="Rgb&lt;255,55,19&gt;">Coral</option>
+                                                <option value="Rgb&lt;255,199,119&gt;">Moccasin</option>
+                                                <option value="Rgb&lt;255,244,157&gt;">LemonChiffon</option>
+                                                <option value="Rgb&lt;255, 244, 244&gt;">Snow</option>
+                                                <option value="Rgb&lt;255,31,15&gt;">Tomato</option>
+                                                <option value="Rgb&lt;14,57,118&gt;">SteelBlue</option>
+                                                <option value="Rgb&lt;255,255,255&gt;">White</option>
+                                                <option value="Rgb&lt;0,0,0&gt;">Black</option>
+                                                <option value="Custom">Custom</option>
+                                            </select>
+                                        </li>
+                                        <li id="li_color3" style="display:none;width:40%;" class="OptionItem">
+                                            <select name="bladeColor3" id="bladeColor3" onchange="previewBladeStyle()" style="min-width:150px;">
+                                                <option value="Rgb&lt;255,0,0&gt;">Red</option>
+                                                <option value="Rgb&lt;255,14,0&gt;">OrangeRed</option>
+                                                <option value="Rgb&lt;255,68,0&gt;">DarkOrange</option>
+                                                <option value="Rgb&lt;255,97,0&gt;">Orange</option>
+                                                <option value="Rgb&lt;180,130,0&gt;">Gold</option>
+                                                <option value="Rgb&lt;255,255,0&gt;">Yellow</option>
+                                                <option value="Rgb&lt;108,255,0&gt;">GreenYellow</option>
+                                                <option value="Rgb&lt;0,255,0&gt;">Green</option>
+                                                <option value="Rgb&lt;55,255,169&gt;">Aquamarine</option>
+                                                <option value="Rgb&lt;0,255,255&gt;">Cyan</option>
+                                                <option value="Rgb&lt;0,135,255&gt;">DeepSkyBlue</option>
+                                                <option value="Rgb&lt;2,72,255&gt;">DodgerBlue</option>
+                                                <option value="Rgb&lt;0,0,255&gt;" selected="selected">Blue</option>
+                                                <option value="Rgb&lt;30,60,200&gt;">IceBlue</option>
+                                                <option value="Rgb&lt;80,50,210&gt;">Indigo</option>
+                                                <option value="Rgb&lt;115,15,240&gt;">Purple</option>
+                                                <option value="Rgb&lt;118,0,194&gt;">DeepPurple</option>
+                                                <option value="Rgb&lt;255,0,255&gt;">Magenta</option>
+                                                <option value="Rgb&lt;255,0,75&gt;">DeepPink</option>
+                                                <option value="Rgb&lt;100,100,150&gt;">Silver</option>
+                                                <option value="Rgb&lt;85,85,200&gt;">Glacier</option>
+                                                <option value="Rgb&lt;55,255,0&gt;">Chartreuse</option>
+                                                <option value="Rgb&lt;223,239,255&gt;">AliceBlue</option>
+                                                <option value="Rgb&lt;239,239,255&gt;">GhostWhite</option>
+                                                <option value="Rgb&lt; 255,36,118&gt;">HotPink</option>
+                                                <option value="Rgb&lt;255,55,19&gt;">Coral</option>
+                                                <option value="Rgb&lt;255,199,119&gt;">Moccasin</option>
+                                                <option value="Rgb&lt;255,244,157&gt;">LemonChiffon</option>
+                                                <option value="Rgb&lt;255, 244, 244&gt;">Snow</option>
+                                                <option value="Rgb&lt;255,31,15&gt;">Tomato</option>
+                                                <option value="Rgb&lt;14,57,118&gt;">SteelBlue</option>
+                                                <option value="Rgb&lt;255,255,255&gt;">White</option>
+                                                <option value="Rgb&lt;0,0,0&gt;">Black</option>
+                                                <option value="Custom">Custom</option>
+                                            </select>
+                                        </li>
+                                        <li id="li_color4" style="display:none;width:40%;" class="OptionItem">
+                                            <select name="bladeColor4" id="bladeColor4" onchange="previewBladeStyle()" style="min-width:150px;">
+                                                <option value="Rgb&lt;255,0,0&gt;">Red</option>
+                                                <option value="Rgb&lt;255,14,0&gt;">OrangeRed</option>
+                                                <option value="Rgb&lt;255,68,0&gt;">DarkOrange</option>
+                                                <option value="Rgb&lt;255,97,0&gt;">Orange</option>
+                                                <option value="Rgb&lt;180,130,0&gt;">Gold</option>
+                                                <option value="Rgb&lt;255,255,0&gt;">Yellow</option>
+                                                <option value="Rgb&lt;108,255,0&gt;">GreenYellow</option>
+                                                <option value="Rgb&lt;0,255,0&gt;">Green</option>
+                                                <option value="Rgb&lt;55,255,169&gt;">Aquamarine</option>
+                                                <option value="Rgb&lt;0,255,255&gt;">Cyan</option>
+                                                <option value="Rgb&lt;0,135,255&gt;">DeepSkyBlue</option>
+                                                <option value="Rgb&lt;2,72,255&gt;">DodgerBlue</option>
+                                                <option value="Rgb&lt;0,0,255&gt;" selected="selected">Blue</option>
+                                                <option value="Rgb&lt;30,60,200&gt;">IceBlue</option>
+                                                <option value="Rgb&lt;80,50,210&gt;">Indigo</option>
+                                                <option value="Rgb&lt;115,15,240&gt;">Purple</option>
+                                                <option value="Rgb&lt;118,0,194&gt;">DeepPurple</option>
+                                                <option value="Rgb&lt;255,0,255&gt;">Magenta</option>
+                                                <option value="Rgb&lt;255,0,75&gt;">DeepPink</option>
+                                                <option value="Rgb&lt;100,100,150&gt;">Silver</option>
+                                                <option value="Rgb&lt;85,85,200&gt;">Glacier</option>
+                                                <option value="Rgb&lt;55,255,0&gt;">Chartreuse</option>
+                                                <option value="Rgb&lt;223,239,255&gt;">AliceBlue</option>
+                                                <option value="Rgb&lt;239,239,255&gt;">GhostWhite</option>
+                                                <option value="Rgb&lt; 255,36,118&gt;">HotPink</option>
+                                                <option value="Rgb&lt;255,55,19&gt;">Coral</option>
+                                                <option value="Rgb&lt;255,199,119&gt;">Moccasin</option>
+                                                <option value="Rgb&lt;255,244,157&gt;">LemonChiffon</option>
+                                                <option value="Rgb&lt;255, 244, 244&gt;">Snow</option>
+                                                <option value="Rgb&lt;255,31,15&gt;">Tomato</option>
+                                                <option value="Rgb&lt;14,57,118&gt;">SteelBlue</option>
+                                                <option value="Rgb&lt;255,255,255&gt;">White</option>
+                                                <option value="Rgb&lt;0,0,0&gt;">Black</option>
+                                                <option value="Custom">Custom</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="div_bladeParam" class="layui-row OptionItem" style="display:none">
+                                <div class="layui-row">
+                                    <label>Parameters:</label>
+                                </div>
+                                <div class="layui-row">
+                                    <ul>
+                                        <li id="li_bladeParam1" style="width:48%;">
+                                            <div class="slidecontainer" style="width:100%"><input name="bladeParam1" type="range" id="bladeParam1" max="32767" min="1" value="4096" onchange="updateRangeDisplay(this.id)"></div>
+                                            <input type="number" id="bladeParam1Display" max="32767" min="1" value="4096" onchange="updateRange(this.id)">
+                                        </li>
+                                        <li id="li_bladeParam2" style="display:none" class="OptionItem">
+                                            <div class="slidecontainer" style="width:100%"><input name="bladeParam2" type="range" id="bladeParam2" max="32767" min="1" value="4096" onchange="updateRangeDisplay(this.id)"></div>
+                                            <input type="number" id="bladeParam2Display" max="32767" min="1" value="4096" onchange="updateRange(this.id)">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="div_bladeSpeed" class="layui-row OptionItem" style="display:none">
+                                <div class="layui-row">
+                                    <label>Speed:</label>
+                                </div>
+                                <div class="layui-row">
+                                    <ul>
+                                        <li>
+                                            <div class="slidecontainer" style="width:100%"><input name="bladeSpeed" type="range" id="bladeSpeed" max="32767" min="1" value="4096" onchange="updateRangeDisplay(this.id)"></div>
+                                            <input type="number" id="bladeSpeedDisplay" max="32767" min="1" value="4096" onchange="updateRange(this.id)">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="div_bladeWidth" class="layui-row OptionItem" style="display:none">
+                                <div class="layui-row">
+                                    <label>Width:</label>
+                                </div>
+                                <div class="layui-row">
+                                    <ul>
+                                        <li>
+                                            <div class="slidecontainer" style="width:100%"><input name="bladeWidth" type="range" id="bladeWidth" max="32767" min="1" value="4096" onchange="updateRangeDisplay(this.id)"></div>
+                                            <input type="number" id="bladeWidthDisplay" max="32767" min="1" value="4096" onchange="updateRange(this.id)">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="div_bladeFreq" class="layui-row OptionItem" style="display:none">
+                                <div class="layui-row">
+                                    <label>Frequency:</label>
+                                </div>
+                                <div class="layui-row">
+                                    <ul>
+                                        <li>
+                                            <div class="slidecontainer" style="width:100%"><input name="bladeFreq" type="range" id="bladeFreq" max="32767" min="1" value="4096" onchange="updateRangeDisplay(this.id)"></div>
+                                            <input type="number" id="bladeFreqDisplay" max="32767" min="1" value="4096" onchange="updateRange(this.id)">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="div_bladeRain" class="layui-row " >
+                                <div class="layui-row">
+                                    <label>Rain Effects:</label>
+                                </div>
+                                <div class="layui-row">
+                                    <ul>
+                                        <li>
+                                            <select name="bladeRain" id="bladeRain" class="preview-opt" onchange="previewBladeStyle()" style="min-width:150px;">
+                                                <option value="0" selected="selected">None</option>
+                                                <option value="White">White</option>
+                                                <option value="Black">Black</option>
+                                                <option value="Red">Red</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Blue">Blue</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+    @{
+        ViewData["readonly"] = 1;
+        Html.RenderPartial("V4Pro/SaveStyle", ViewData);
+    }
+
+    <script>
+        var height = window.document.body.clientHeight * 0.2;
+        initGL(null, 140);
+        initBladeStyle()
+    </script>
+</body>
+</html>
+
+

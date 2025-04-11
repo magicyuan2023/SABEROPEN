@@ -1,0 +1,116 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Web\\Juyou.Solution.Web.csproj": {}
+  },
+  "projects": {
+    "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Web\\Juyou.Solution.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Web\\Juyou.Solution.Web.csproj",
+        "projectName": "Juyou.Solution.Web",
+        "projectPath": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Web\\Juyou.Solution.Web.csproj",
+        "packagesPath": "D:\\vc_packages",
+        "outputPath": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\26188\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.BII\\Juyou.Solution.BII.csproj": {
+                "projectPath": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.BII\\Juyou.Solution.BII.csproj"
+              },
+              "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Common\\Juyou.Solution.Common.csproj": {
+                "projectPath": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Common\\Juyou.Solution.Common.csproj"
+              },
+              "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Dal\\Juyou.Solution.Dal.csproj": {
+                "projectPath": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Dal\\Juyou.Solution.Dal.csproj"
+              },
+              "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Model\\Juyou.Solution.Model.csproj": {
+                "projectPath": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Model\\Juyou.Solution.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

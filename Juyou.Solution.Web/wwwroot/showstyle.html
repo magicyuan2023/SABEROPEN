@@ -1,0 +1,270 @@
+﻿<!-- saved from url=(0069)https://fredrik.hubbe.net/lightsaber/style_editor.html?S=EFFECT_BLAST -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>Show Style</title>
+
+    <script src="/js/lightsaber/Base.js"></script>
+    <script src="/js/lightsaber/Colors.js"></script>
+    <script src="/js/lightsaber/Functions.js"></script>
+    <script src="/js/lightsaber/Transitions.js"></script>
+    <script src="/js/lightsaber/Layers.js"></script>
+    <script src="/js/lightsaber/Models.js"></script>
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        precision highp float;
+        attribute vec2 a_position;
+        varying vec2 v_position;
+        uniform float u_width;
+        uniform float u_height;
+
+        void main() {
+            v_position = a_position * vec2(u_width, u_height);
+            gl_Position = vec4(a_position, 0, 1);
+        }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision highp float;
+        uniform float u_time;
+        varying vec2 v_position;
+        uniform float u_width;
+        uniform float u_height;
+        uniform sampler2D sampler;
+        uniform mat4 u_move_matrix;
+        uniform mat4 u_old_move_matrix;
+
+        $VARIABLES$
+
+        vec3 A = vec3(0,3,0);
+        vec3 B = vec3(0,-4,0);
+
+        float get_point(vec3 p) {
+           vec3 pa = p - A, ba = B - A;
+           return clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
+        }
+
+        int get_led(vec3 p) {
+          return int(get_point(p) * 129.0);
+        }
+
+        float blade(vec3 p, bool tangent) {
+           vec3 pa = p - A, ba = B - A;
+           float h = clamp( dot(pa,ba)/dot(ba,ba), 0.0, 1.0 );
+           vec3 tmp = pa - ba * h;
+           float l2 = dot(tmp, tmp);
+           //   float R = 0.08;
+           float R = 0.09;
+            if (tangent && l2 >= R*R) {
+             return sqrt(l2 - R*R);
+           }  else {
+             return sqrt(l2) - R;
+           }
+        }
+
+        float handle(vec3 p) {
+           vec2 h = vec2(.15, 0.7);
+           p.y -= 3.65;
+           vec2 d = abs(vec2(length(p.xz),p.y)) - h;
+           return min(max(d.x,d.y),0.0) + length(max(d,0.0));
+        }
+
+        float map(vec3 p, bool tangent) {
+          return min(blade(p, tangent), handle(p));
+        }
+
+
+        vec3 getBladeColor(vec3 pos) {
+            return texture2D(sampler, vec2(get_point(pos), 0.5)).rgb;
+        }
+
+        float march(vec3 start, vec3 dir, out vec3 haze_color) {
+          haze_color = vec3(0,0,0);
+          float dist = 0.0;
+          float last_dist = 0.0;
+          float last_d = 0.0;
+          bool hit = false;
+          float haze = 1.0;
+          for (int i = 0; i < 100; i++) {
+            vec3 p =start + dir * dist;
+            float hilt_dist = handle(p);
+            float blade_dist = blade(p, !hit);
+            float d = min(hilt_dist, blade_dist);
+
+            if (dist > 20.0) return 10000.0;
+            if (d < 0.00001 * dist) {
+              if (d < 0.0) {
+                hit = true;
+        //        dist = last_dist + (dist - last_dist) * (last_d / (last_d - d));
+                dist = last_dist;
+                continue;
+              }
+              return dist;
+            }
+            if (get_led(p) > 0) {
+              // haze_color += getBladeColor(p) * clamp(0.002 / (blade_dist*blade_dist), 0.0, 1.0);
+
+              // haze_color += getBladeColor(p) * 0.0005 / (blade_dist*blade_dist*blade_dist) * d;
+
+              float haze_m = clamp(0.004 / (blade_dist*blade_dist), 0.0, 1.0);
+              haze_color += getBladeColor(p) * haze_m * haze;
+              haze *= (1.0 - haze_m);
+            }
+            last_d = d;
+            last_dist = dist;
+            dist += d;
+          }
+          if (hit) return dist;
+          return -1.0;
+        }
+
+
+        vec3 getNormal(vec3 p) {
+          float E = 0.00001;
+          vec3 X = vec3(E,0.0,0.0);
+          vec3 Y = vec3(0.0,E,0.0);
+          vec3 Z = vec3(0.0,0.0,E);
+        //  return normalize(vec3(map(p + X, false) - map(p - X, false),
+        //                        map(p + Y, false) - map(p - Y, false),
+        //                        map(p + Z, false) - map(p - Z, false)));
+
+          float D = map(p, false);
+          return normalize(vec3(map(p + X, false) - D,
+                                map(p + Y, false) - D,
+                                map(p + Z, false) - D));
+        }
+
+        float line_dist(vec3 pt1, vec3 dir1, vec3 pt2, vec3 dir2) {
+          vec3 n = normalize(cross(dir1, dir2));
+          return abs(dot(n, pt1 - pt2));
+        }
+
+        void main() {
+            vec3 light = vec3(-10.0, 5.0, -10.0);
+            vec3 eye = vec3(0.0, 0.0, -12.0);
+            float zoom = 1.5;
+            vec3 dir = normalize(
+                    vec3((v_position.x) / u_width / zoom,
+                         (v_position.y) / u_width / zoom, 2.0));
+            mat4 rot3 = mat4(0.0, -1.0, 0.0, 0.0,
+                             0.0, 0.0, -1.0, 0.0,
+                     1.0, 0.0, 0.0, 0.0,
+                     0.0, 0.0, 0.0, 1.0);
+
+            mat4 rot = rot3 * u_move_matrix;
+            vec3 new_eye = (rot * vec4(eye.xyz, 1.0)).xyz;
+            vec3 new_dir = (rot * vec4(dir.xyz, 1.0)).xyz;
+
+            mat4 old_rot = rot3 * u_old_move_matrix;
+            vec3 old_eye = (old_rot * vec4(eye.xyz, 1.0)).xyz;
+            vec3 old_dir = (old_rot * vec4(dir.xyz, 1.0)).xyz;
+
+            float minpoint = 1.0;
+
+            if (true) {
+              // gauss
+              for (int i = 0; i < 5; i++) {
+                vec3 e1 = mix(old_eye, new_eye, minpoint);
+                vec3 d1 = normalize(mix(old_dir, new_dir, minpoint));
+                float delta = 0.001;
+                vec3 e2 = mix(old_eye, new_eye, minpoint - delta);
+                vec3 d2 = normalize(mix(old_dir, new_dir, minpoint - delta));
+                float dist1 = line_dist(e1, d1, A, B-A);
+                float dist2 = line_dist(e2, d2, A, B-A);
+                minpoint = minpoint - dist1 / ((dist1-dist2)/delta);
+              }
+              minpoint = clamp(minpoint, 0.0, 1.0);
+            }
+
+            eye = mix(old_eye, new_eye, minpoint);
+            dir = normalize(mix(old_dir, new_dir, minpoint));
+
+            vec3 haze_color;
+            float x = march(eye, dir, haze_color);
+            vec3 hp = eye + dir * x;
+            vec3 color = vec3(1,1,1);
+            vec3 color2 = getBladeColor(hp);
+            if (blade(hp, false) > handle(hp)) {
+              color = vec3(0.3,0.3,0.3);
+              color2 = vec3(0);
+            }
+
+            vec3 normal = getNormal(hp);
+            vec3 light_dir = light - hp;
+            float light_dist2 = dot(light_dir, light_dir) / 10.0;
+            light_dir = normalize(light_dir);
+            float l = dot(light_dir, normal) * 5.0;
+
+            l = max(l, 0.0);
+            l /= sqrt(light_dist2);
+            l += 0.1;  // ambient
+            color *= l;
+            color += color2 * 2.0;
+
+            vec3 reflection = reflect(dir, normal);
+            float l2 = max(dot(reflection, light_dir), 0.0);
+            color += vec3(200.0) * pow(l2, 60.0);
+            vec3 haze = vec3(0.01, 0.01, 0.01);
+            float haze_mix = x < 0.0 ? 0.0 : pow(0.95, x);
+            color = haze_mix * color + (1.0 - haze_mix) * haze;
+            color += haze_color;
+
+            // Clip to white
+            color += vec3(dot(max(color - vec3(1), vec3(0)), vec3(0.33)));
+            // color += vec3(dot(max(color - vec3(1), 0.0), vec3(0.299, 0.587, 0.114)));
+            // color += vec3(max(dot(color, vec3(0.299, 0.587, 0.114)) - 1.0, 0.0));
+
+            color = sqrt(color);
+            gl_FragColor = vec4(color, 1.0);
+        }
+    </script>
+
+    <script src="/js/lightsaber/ModelGenerator.js"></script>
+
+</head>
+
+<body style="margin:0 0 0 0;">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <canvas id="canvas_id" width="1280" height="284" style="width: 853.333px; height: 189.667px;" onclick="AddClash()"> </canvas>
+
+                    <input id="VARIANT" name="variant" type="hidden" size="6" value="0">
+                    <input id="style" name="style" type="hidden" size="6" value="0">
+                    <input id="swing_speed_input" name="swing_speed_input" type="hidden" value="">
+                    <span id="error_message" style="display:none"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">
+                    <div style="margin: 0 auto;">
+                        <input id="style" name="style" type="hidden" value="">
+                        <input id="swing_speed_input" name="swing_speed_input" type="hidden" value="">
+                        <input id="VARIANT" name="variant" type="hidden" size="6" value="0" />
+                        <input id="POWER_BUTTON" name="on" type="button" value="Power" onclick="ClickPower()" style="background-color: green;width:50px;color:white;font-size:12px;">
+                        <input name="clash" type="button" value="Clash" onclick="AddClash();" style="width:50px;font-size:12px;">
+                        <input name="stab" type="button" value="Stab" onclick="AddStab();" style="width:50px;font-size:12px;">
+                        <input name="blast" type="button" value="Blast" onclick="AddBlast()" style="width:50px;font-size:12px;">
+                        <input name="force" type="button" value="Force" onclick="AddForce()" style="width:50px;font-size:12px;">
+                        <input name="swing" type="button" value="Swing" onmousedown="DoSwing()" onmouseup="StopSwing()" style="width:50px;font-size:12px;">
+                        <select name="lockup" id="LOCKUP" onchange="OnLockupChange()" style="font-size:12px;width:60px;">
+                            <option value="LOCKUP_NONE">No lockup</option>
+                            <option value="LOCKUP_NORMAL">Lockup</option>
+                            <option value="LOCKUP_DRAG">Drag</option>
+                            <option value="LOCKUP_MELT">Melt</option>
+                            <option value="LOCKUP_LIGHTNING_BLOCK">LB</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        var p = new URL(window.location.href).searchParams;
+        initGL(p.get("w"), p.get("h"));
+    </script>
+</body>
+</html>

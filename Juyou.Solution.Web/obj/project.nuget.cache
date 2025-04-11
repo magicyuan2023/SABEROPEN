@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "dgSpecHash": "Zwu8GJHkqyg=",
+  "success": false,
+  "projectFilePath": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Web\\Juyou.Solution.Web.csproj",
+  "expectedPackageFiles": [
+    "D:\\vc_packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "D:\\vc_packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "D:\\vc_packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "D:\\vc_packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "D:\\vc_packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "D:\\vc_packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "D:\\vc_packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "D:\\vc_packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
+    "D:\\vc_packages\\system.configuration.configurationmanager\\7.0.0\\system.configuration.configurationmanager.7.0.0.nupkg.sha512",
+    "D:\\vc_packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "D:\\vc_packages\\system.security.cryptography.protecteddata\\7.0.0\\system.security.cryptography.protecteddata.7.0.0.nupkg.sha512",
+    "D:\\vc_packages\\system.security.permissions\\7.0.0\\system.security.permissions.7.0.0.nupkg.sha512",
+    "D:\\vc_packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "找不到项目“D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Dal\\Juyou.Solution.Dal.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
+      "libraryId": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Dal\\Juyou.Solution.Dal.csproj",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "找不到项目“D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.BII\\Juyou.Solution.BII.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
+      "libraryId": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.BII\\Juyou.Solution.BII.csproj",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "找不到项目“D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Model\\Juyou.Solution.Model.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
+      "libraryId": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Model\\Juyou.Solution.Model.csproj",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "找不到项目“D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Common\\Juyou.Solution.Common.csproj”。请检查项目引用是否有效以及项目文件是否存在。",
+      "libraryId": "D:\\SourceCode\\netcore\\guangjian\\trunck\\Juyou.Solution.Common\\Juyou.Solution.Common.csproj",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
+}

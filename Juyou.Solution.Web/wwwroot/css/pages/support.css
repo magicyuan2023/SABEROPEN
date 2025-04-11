@@ -1,0 +1,15 @@
+﻿
+
+.flow-default {
+    width: 1280px;
+    height: 100%;
+   
+}
+
+    .flow-default li {      
+        font-size: 18px;
+        margin-top:15px;
+        margin-bottom: 15px;
+     
+    }
+    

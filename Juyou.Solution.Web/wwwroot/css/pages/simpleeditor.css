@@ -1,0 +1,163 @@
+﻿
+.optionsScreen h1 {
+    font-size: 1.5em;
+    margin: 10px;
+    /*border-bottom: 1px solid #000;*/
+    padding: 12px 6px;
+    background: linear-gradient(#333, #111);
+    background-color: #111;
+    margin: 0;
+    color: #fff;
+}
+
+.optionsScreen.split {
+    /*width: 60%;*/
+    transition: linear 0.35s;
+}
+
+
+h3 {
+    font-size: 1.1em;
+    color: #DDD;
+    /*border-bottom: 1px solid #111;*/
+    padding: 6px;
+    background-color: #333;
+    margin: 0 10px 5px 0;
+}
+
+p {
+    padding: 5px;
+}
+
+
+.clearFloat {
+    clear: both;
+    margin: 2px 0
+}
+
+br {
+    clear: both;
+}
+
+.panecard {
+    /* border-radius: 2px; */
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.optionsScreen {
+    width: 100%;    
+    overflow-y:auto;
+}
+
+    .optionsScreen li {
+        display: inline-flex;
+        margin: 0px 5px 0px 0px;
+        font-size: 14px;
+        margin-bottom: 5px;
+       /* height: 35px;*/
+        vertical-align: middle;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+.slidecontainer {
+    /*width: 100%;*/
+    /*text-align: center;*/
+}
+
+.slidename{
+    /*text-align:left;*/
+    font-size:10px !important;
+    /*padding-bottom:8px;*/
+}
+
+
+.slidedisplay
+{
+  /*  height:20px;*/
+}
+
+
+/* 定义input range的样式 */
+input[type="range"] {
+    width: 100px; /* 控制滑块的宽度 */
+    height: 1px;
+    margin: 0;
+    vertical-align:middle;
+    background: #f2f2f2; /* 滑块背景色 */
+}
+
+
+.style_container {
+    margin-left: 5px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+   
+}
+
+.style_params {
+    margin-left:10px;
+}
+.style_param {
+  
+}
+.style_effect {
+    margin-top: 5px;
+    display:flex;
+    vertical-align: middle;
+    justify-content: left;
+    align-items: center;
+}
+
+.select_subeffect {
+    vertical-align: middle;
+    font-size:12px;
+}
+
+.select_style {
+    min-width:200px;
+}
+
+.select_type {
+    min-width: 200px;
+}
+
+.select_color {
+    min-width: 80px;
+    vertical-align: middle;
+    font-size: 12px;
+}
+
+.select_Rain {
+    min-width: 120px;
+}
+
+.effect_container {
+    margin-left: 5px;
+    margin-bottom:10px;
+}
+
+
+.label_columnName {
+    float: left;
+    display: block;
+   
+    line-height: 20px;
+    text-align: right
+}
+
+
+.label_subcolumnName {
+    float: left;
+    display: block;
+    line-height: 20px;
+    text-align: right;
+    font-size:12px;
+}
+
+.item_center {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,56 @@
+﻿@using Juyou.Solution.Model.Models
+@using Juyou.Solution.Model;
+@model Juyou.Solution.Model.Models.UserRole
+
+@{ ViewData["Title"] = SystemSet.SystemName + "-添加角色";
+    Layout = "~/Pages/_LayoutNone.cshtml";
+    }
+<div class="manage-form-container">
+    <form class="layui-form" method="post" id="adform">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="RoleName" class="layui-input layui-form-text" required lay-verify="required" placeholder="请输入角色名称" autocomplete="off" value='@(Model != null  ? Model.RoleName  : "")' />
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">平台角色</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" name="IsPlatform" id="IsPlatform" lay-skin="switch" lay-text="是|否"  @(Model != null && Model.IsPlatform.Value ? "checked":"") value='True' />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div style="text-align:center">
+                <input type="hidden" name="ID" value="@(Model!=null ? Model.Id.ToString() :"0")" />
+                <button class="layui-btn" lay-submit lay-filter="*">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        var layer
+        layui.use(['form', 'laydate', 'layer', 'element'], function () {
+            var form = layui.form;
+            var laydate = layui.laydate;
+            var element = layui.element
+            layer = layer;
+           
+            form.on('submit(*)', function (data) {
+                $.post('/Users/SaveRole', data.field, function (res) {
+                    if (res.code == 1) {
+                        layer.msg('保存成功', { icon: 6 });
+                        window.parent.location.reload();
+                    } else {
+                        console.log(res);
+                        layer.msg('保存失败', { icon: 5 });
+                    }
+                })
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        });
+
+    </script>
+}
+

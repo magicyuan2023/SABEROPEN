@@ -1,0 +1,97 @@
+﻿@using Juyou.Solution.Model.Enume
+@using Juyou.Solution.Model;
+@model IEnumerable<Juyou.Solution.Model.Models.UserRole>
+
+@{ ViewData["Title"] = SystemSet.SystemName + "-角色管理";
+                Layout = "~/Pages/_Layout.cshtml"; }
+
+
+<blockquote class="layui-elem-quote">
+    <span style="font-size:16px;">>>角色&权限管理</span>  <div class="layui-btn-container" style="float:right;">
+    @if (ViewBag.UserJur != null && ViewBag.UserJur.IsAdd)
+    {
+        <a class="layui-btn layui-btn-normal layui-btn-sm  layui-btn-radius addrole" href="javascript:;" onclick="addRole(0);">添加角色</a>
+    }
+    </div>
+</blockquote>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>角色列表</legend>
+</fieldset>
+<table class="layui-table">
+    <colgroup>
+        <col width="100" />
+        <col width="150" />
+        <col width="100" />
+        <col width="100" />
+        <col width="60" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>角色ID</th>
+            <th>角色名称</th>
+            <th>平台角色</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var m in Model)
+            {
+<tr>
+    <td>@m.Id</td>
+    <td>@m.RoleName</td>
+    <td>@(m.IsPlatform.Value ? "是" : "否")</td>
+    <td>
+        @if (ViewBag.UserJur != null && ViewBag.UserJur.IsEdit)
+        {
+            <button onclick="addRole('@m.Id')" class="layui-btn layui-btn-sm "><i class="layui-icon">&#xe608;</i>编辑</button>
+            <a href="/Users/AddRoleJuri?roleid=@(m.Id)" class="layui-btn layui-btn-sm "><i class="layui-icon">&#xe608;</i>分配权限</a>
+        }
+        @if (ViewBag.UserJur != null && ViewBag.UserJur.IsDelete)
+        {
+            <button onclick="Del('@m.Id')" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger"><i class="layui-icon"></i>删除</button>
+        }
+    </td>
+</tr>}
+            }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script type="text/javascript">
+        var layer
+        layui.use(['layer', 'element'], function () {
+            var element = layui.element
+            layer = layui.layer;
+        })
+
+        function addRole(id) {
+            layer.open({
+                type: 2,
+                title: id <= 0  ? '添加角色' : "编辑角色",
+                shadeClose: false,
+                shade: 0.8,
+                area: ['500px', '300px'],
+                content: '/Users/AddRole?id=' + id
+            });
+        }
+        function Del(id) {
+            layer.confirm('是否删除该角色？', {
+                btn: ['删除', '取消'] //按钮
+            }, function () {
+                $.get('/Users/DelRole?id=' + id, function (res) {
+                    if (res.code === 1) {
+                        layer.msg('删除成功', { icon: 6 });
+                        window.location.reload()
+                    } else {
+                        layer.msg('删除失败', { icon: 5 });
+                    }
+                })
+            }, function () {
+            });
+        }
+
+    </script>
+}

@@ -1,0 +1,120 @@
+﻿@using Juyou.Solution.Model.Models;
+@using Juyou.Solution.Model;
+@model VwLightstyle
+@{
+    ViewData["Title"] = SystemSet.SystemName + "-Style Professional Editor";
+    Layout = "~/Pages/_Layout.cshtml";
+
+}
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/lightsaber.css">
+    }
+@Html.Partial("StyleHeader")
+@section Scripts{
+
+
+    <script src="~/js/pages/v4pro/StyleGenerator.js"></script>
+    <script src="~/js/pages/v4pro/styleeditor.js"></script>
+    <script src="~/js/pages/v4pro/professionaleditor.js"></script>
+}
+
+<div class="layui-fluid  horizontal_center pannel-background ">
+    <div class="card">
+    <table>
+        <tbody>
+            <tr>
+                <td valign="top" width="50%">
+                    <canvas id="canvas_id" width="960" height="284" style="width:960px; height: 284px;" @* onmousemove="mouse_move(event)" onmouseleave="mouse_leave(event)"*@ onclick="AddClash()"> </canvas>
+                    <br>
+                        <input id="swing_speed_input" name="swing_speed_input" type="hidden" value="0">
+                        <input id="POWER_BUTTON" name="on" type="button" value="Power" onclick="ClickPower();" style="width:60px;color:black;">
+                         <input name="clash" type="button" value="Clash" onclick="AddClash();" style="width:60px;">
+                        <input name="stab" type="button" value="Stab" onclick="AddStab();" style="width:60px;">
+                        <input name="blast" type="button" value="Blast" onclick="AddBlast()" style="width:60px;">
+                        <input name="force" type="button" value="Force" onclick="AddForce()" style="width:60px;">
+                        <input name="boot" type="button" value="Boot" onclick="AddBoot()" style="width:60px;">
+                        <input name="newfont" type="button" value="NewFont" onclick="AddNewfont()" style="width:80px;">
+                        <input name="preon" type="button" value="Preon" onclick="AddPreon()" style="width:60px;">
+
+                    <select name="lockup" id="LOCKUP" onchange="OnLockupChange()">
+                        <option value="LOCKUP_NONE">No lockup</option>
+                        <option value="LOCKUP_NORMAL">Lockup</option>
+                        <option value="LOCKUP_DRAG">Drag</option>
+                        <option value="LOCKUP_MELT">Melt</option>
+                        <option value="LOCKUP_LIGHTNING_BLOCK">LB</option>
+                    </select>
+                        
+                    Variant:
+                    <input id="VARIANT_MINUS" name="varminus" type="button" value="&lt;" onclick="IncreaseVariant(-1)">
+                    <input id="VARIANT" name="variant" type="input" size="6" value="0">
+                    <input id="VARIANT_PLUS" name="varplus" type="button" value="&gt;" onclick="IncreaseVariant(1)">
+                       
+                    <span id="error_message"></span>
+                    <br>
+                    <pre><textarea rows="10" cols="80" id="style" style="width:100%;">@(Model != null ? Model.Code : "")</textarea></pre>
+                    <!-- <input id=style type=text size=100 onkeydown="if (event.keyCode == 13) Run();"> --> <input name="run" type="button" value="Submit" onclick="Run()"><input name="copy" type="button" value="Copy" onclick="Copy()">
+                        <input type="button" name="expand" value="Expand" id="expand_button" onclick="DoExpand()" class="button_off" style="width:60px;">
+                        <input type="button" name="layerize" value="Layerize" id="layerize_button" onclick="DoLayerize()" class="button_off" style="width:60px;">
+                        <input type="button" name="argify" value="Argify" id="argify_button" onclick="DoArgify()" style="width:60px;">
+@*                     <input id="ROTATE_BUTTON" name="rotate" type="button" value="Rotate" onclick="ClickRotate()">
+                    <input id="INHILT_BUTTON" name="inhilt" type="button" value="Inhilt" onclick="ClickInhilt()">
+                    <input id="SLOW_BUTTON" name="inhilt" type="button" value="Slow" onclick="ClickSlow()">
+                        *@                    <input id="save" type="button" value="Save" onclick="showSaveDialog(false,['350px','400px'])" />
+                        <input id="download" type="button" value="Download" onclick="showSaveDialog(true,['350px','400px'])" style="width:100px;" /><br>
+
+                    <div id="TABS">
+                        <div id="TABLINKS" class="tab">
+                        </div>
+                        <div id="TABBODIES" class="tabcontainer">
+                          
+                        </div>
+
+
+                        <div>
+                            <font face="helvetica,arial" size="-1">
+                                This page has been accessed <accessed type="comma_grouped">
+                                    times since
+                                    <accessed since="" part="month" type="string">
+                                        <accessed since="" part="date" type="ordered">
+                                            ,
+                                            <accessed since="" part="year">
+                                                .<br>
+                                                Last modified:
+                                                <modified part="month" type="string">
+                                                    <modified part="date" type="ordered">
+                                                        ,
+                                                        <modified part="year">
+                                                        </modified>
+                                                    </modified>
+                                                </modified>
+                                            </accessed>
+                                        </accessed>
+                                    </accessed>
+                                </accessed>
+                            </font>
+                        </div>
+                    </div>
+                </td>
+                <td valign="top">
+                    <div style="width: 100%; height: 99vh; overflow-y: scroll;">
+                        <b>Structured view, click to edit</b>
+                        <div id="pp">
+                            <div id="X1170" style="border-style:solid;border-width:1px;border-color:gray;" onclick="FocusOn(1170,event)">
+                                <span title="EFFECT">EFFECT_BLAST</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+
+@{
+    ViewData["Readonly"] = 0;
+    Html.RenderPartial("V4Pro/SaveStyle", ViewData);
+}
+
+

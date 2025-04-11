@@ -1,0 +1,74 @@
+﻿@using Juyou.Solution.Model.Models
+@using Juyou.Solution.Model;
+@{
+    ViewData["Title"] = SystemSet.SystemName + "-My Stles";
+    Layout = "~/Pages/_Layout.cshtml";
+
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/pages/stylelist.css">
+}
+<div style="width:1280px;margin:0 auto">
+    <div class="layui-collapse" style="width:100%">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">Filter</h2>
+            <div class="layui-colla-content">
+
+                <div class="layui-fluid">
+                    <div class="layui-row">
+                        <form class="layui-form vertical_center" method="post" id="queryform">
+                            <div class="cols-md query-from-item">
+                                <label class="layui-form-label">Name</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" class="layui-form-text layui-input" value="" style="width:200px;" />
+                                </div>
+                            </div>
+                          
+                            <div class="cols-md query-from-item">
+                                <div class="layui-input-inline  ">
+                                    <input type="hidden" id="actionName" name="actionName" value="GetToApprovalList" />
+                                    <button id="btn_query" class="layui-btn layui-btn-sm" lay-submit="" lay-filter="sreach">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="layui-table" id="lstyleTable" lay-data="{ url:'/api/Styles/GetToApprovalList', page:true, id:'lstyleGrid',event:true }" lay-filter="lstyleTable">
+        <thead>
+            <tr>
+                @*<th lay-data="{field:'id', width:80,  fixed: true}">ID</th>*@
+                <th lay-data="{field:'lstyleName', width:100,templet:function(d){return getImage(d)}}">Image</th>
+                <th lay-data="{field:'name', width:120}">Name</th>
+                <th lay-data="{field:'type', width:80,templet:function(d){return getVersionName(d.type)}}">Version</th>
+                <th lay-data="{field:'desc', width:180}">Desc</th>
+                <th lay-data="{field:'code', width:250}">Source code</th>
+                <th lay-data="{field:'owner', width:120}">Publisher</th>
+                <th lay-data="{field:'publishTime', width:120}">Publish time</th>
+                <th lay-data="{fixed: 'right', width:300, toolbar: '#lstyleToolbar'}"></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<script type="text/html" id="lstyleToolbar">
+    <div class="layui-btn-group">
+          <a class="layui-btn layui-btn-mini layui-btn-sm  " lay-event="view">Demonstrate</a>
+           <a class="layui-btn layui-btn-mini layui-btn-sm  " lay-event="download">Download</a>
+         <a class="layui-btn layui-btn-danger layui-btn-mini layui-btn-sm " lay-event="approval">Approval</a>
+        </div>
+</script>
+@section Scripts {
+
+    <script type="text/javascript" src="~/js/pages/lightstyle.js">
+    </script>
+    <script type="text/javascript" src="~/js/pages/stylelist.js">
+    </script>
+
+}
+
+

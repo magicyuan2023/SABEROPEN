@@ -1,0 +1,194 @@
+
+    .pannel-background {
+    background-color: rgb(245 254 245);
+    min-height: 100%;
+}
+
+label.error{
+    color: #cc1111;
+    text-align: left;
+}
+.rolejurtree {
+    display:inline-block;
+    width:180px;
+    height:210px;
+    padding:10px;
+    border:1px solid #ddd;
+    overflow:auto;
+}
+.rolejure {
+    display: inline-block;
+}
+form .query-from-item {
+    margin-top: 8px;
+}
+.manage-form-container {
+    padding:20px;
+    border:1px solid #eee;
+    /*width:850px;*/
+}
+
+.manage-console-enterreport {
+    color: #fff;
+}
+.manage-console-enterreport-today {
+    background-color: #009688;
+    padding: 10px;
+    height: 120px;
+    border-radius: 10px;
+}
+.manage-console-enterreport-week {
+    background-color: #5FB878;
+    padding: 10px;
+    height: 120px;
+    border-radius: 10px;
+}
+.manage-console-enterreport-Month {
+    background-color: #2F4056;
+    padding: 10px;
+    height: 120px;
+    border-radius: 10px;
+}
+
+
+.manage-console-enterreport-today1 {
+    background-color: #009688;
+    padding: 10px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.manage-console-enterreport-week1 {
+    background-color: #5FB878;
+    padding: 10px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.manage-console-enterreport-Month1 {
+    background-color: #2F4056;
+    padding: 10px;
+    height: 200px;
+    border-radius: 10px;
+}
+.manage-console-enterreport-title {
+    font-size: 1.2em;
+    text-align: center;
+}
+.manage-console-enterreport-score {
+    font-size: 3em;
+    text-align:center;
+}
+.manage-console-enterreport-score3 {
+    font-size: 2.8em;
+    text-align: center;
+}
+.manage-console-enterreport-score1 {
+    font-size: 1.2em;
+    text-align: right;
+}
+.manage-console-enterreport-score2 {
+    font-size: 1.2em;
+    text-align: left;
+}
+.manage-enter-title {
+    text-align:center;
+    font-size:2em;
+}
+.manage-enter-main {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+    .manage-enter-main ul {
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-top: 10px;
+        border: dashed;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        padding:10px;
+
+    }
+.manage-enter-main .content {
+    border: 1px solid #d2d2d2;
+    padding:30px;
+    margin-left:30px;
+    margin-right:30px;
+}
+.manage-enter-main fieldset {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.layui-table-cell {
+    height: auto;
+}
+.manage-ti {
+    padding-left: 30px;
+}
+.manage-ti ul {
+    padding-left: 20px;
+}
+.manage-ti ul li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.word_break {
+    word-break: break-all;
+   /* white-space: pre-wrap;*/
+ /*   word-wrap: break-word;*/
+    overflow: hidden;
+}
+
+.card {
+    /* border-radius: 2px;*/
+    box-shadow: 0 10px 10px 0 rgba(0,0,0,0.2);
+    padding-bottom: 20px;
+}
+
+.cols-md {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    padding-right:10px;
+    float: left;
+    width:auto;
+}
+
+.dateinput {
+    width: 100px;
+}
+
+.monthinput{
+    width:80px;
+}
+
+.dateinput {
+    width: 90px;
+}
+
+.textinput {
+    width: 130px;
+}
+
+.position_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+}
+
+
+.horizontal_center {
+    display: flex;
+    justify-content: center;
+}
+
+.vertical_center {
+    display: flex;
+    align-items: center;
+}

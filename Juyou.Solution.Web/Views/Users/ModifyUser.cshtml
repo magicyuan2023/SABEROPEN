@@ -1,0 +1,71 @@
+﻿@using Juyou.Solution.Model.Models
+@using Juyou.Solution.Model;
+@model UserInfo
+@{ ViewData["Title"] = SystemSet.SystemName + "-Modify Base Information";
+    Layout = "~/Pages/_LayoutNone.cshtml";
+   
+}
+
+<form class="layui-form" method="post" action="">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">Nickname</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Name" value="@(Model != null ? Model.Name : "")" required lay-verify="required" placeholder="Please enter nickname" autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Password</label>
+        <div class="layui-input-inline">
+            <input type="password" name="Password" lay-verify="required|pass" placeholder="Please enter password" autocomplete="off" class="layui-input" )" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Email</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Email" value="@(Model != null ? Model.Email : "")" lay-verify="email" placeholder="Please enter email" autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div  style="text-align:center">
+            <input type="hidden" name="ID" value="@(Model != null ? Model.Id.ToString() : "")" />
+           
+            <input type="hidden" name="RoleId" value="@(Model != null ? Model.RoleId.ToString() : "")" />
+            <input type="hidden" name="UserName" value="@(Model != null ? Model.UserName.ToString() : "")" />
+            <input type="hidden" name="Region" value="@(Model != null ? Model.Region.ToString() : "")" />
+            <button class="layui-btn" lay-submit lay-filter="*">Submit</button>
+            <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script type="text/javascript" src="~/layui/ext/xm-select.js"></script>
+    <script type="text/javascript">
+       
+        layui.use(['form', 'layer'], function () {
+            var form = layui.form;
+            var layer = layui.layer;
+
+            form.verify({
+               
+                 pass: [
+                    /^[\S]{6,12}$/
+                    , 'The password must be between 6 and 12 digits and cannot contain spaces'
+                ]
+            });
+            form.on('submit(*)', function (data) {
+                
+                $.post('/Users/SaveUser', data.field, function (res) {
+                    if (res.code == 1) {
+                        layer.msg('Save successful', { icon: 6 });
+                        window.parent.location.href = "/account/index";
+                    } else {
+                        layer.msg('Save failed', { icon: 5 });
+                    }
+                })
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        });
+    </script>
+}

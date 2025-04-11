@@ -1,0 +1,141 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Juyou.Solution.Web
+build_property.RootNamespace = Juyou.Solution.Web
+build_property.ProjectDir = D:\SourceCode\netcore\guangjian\trunck\Juyou.Solution.Web\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\SourceCode\netcore\guangjian\trunck\Juyou.Solution.Web
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 6.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Pages/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWJvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Pages/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udGFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Pages/_LayoutNone.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dE5vbmUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Account/ForgetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JnZXRQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Account/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Home/ConsoleIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb25zb2xlSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Home/Support.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdXBwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Styles/MyStyles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R5bGVzXE15U3R5bGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Styles/StyleHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R5bGVzXFN0eWxlSGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Styles/ToApprovalStyles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R5bGVzXFRvQXBwcm92YWxTdHlsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Styles/V4Pro/SaveStyle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R5bGVzXFY0UHJvXFNhdmVTdHlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Styles/V4Pro/ShowStyle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R5bGVzXFY0UHJvXFNob3dTdHlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Styles/V4Pro/SimpleEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R5bGVzXFY0UHJvXFNpbXBsZUVkaXRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Styles/V4Pro/SimpleEditorM.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R5bGVzXFY0UHJvXFNpbXBsZUVkaXRvck0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Styles/V4Pro/StyleEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R5bGVzXFY0UHJvXFN0eWxlRWRpdG9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Users/AddRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQWRkUm9sZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Users/AddRoleJuri.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQWRkUm9sZUp1cmkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Users/AddUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQWRkVXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Users/ModifyUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcTW9kaWZ5VXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Users/ModuleList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcTW9kdWxlTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Users/RoleList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcUm9sZUxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Users/UserList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVXNlckxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SourceCode/netcore/guangjian/trunck/Juyou.Solution.Web/Views/Users/UserMessage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcVXNlck1lc3NhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,29 @@
+﻿@using Juyou.Solution.Model
+@using Juyou.Solution.ViewModel
+@using Juyou.Solution.Model.Enume
+@{
+    ViewData["Title"] = SystemSet.SystemName + "-Home";
+    Layout = "~/Pages/_Layout.cshtml";
+
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/pages/consoleindex.css">
+
+}
+
+<div class="layui-fluid  pannel-background layui-container" style="margin-top:5px;width:1280px;">
+   
+    <div class="layui-row">
+        <ul class="flow-default" id="lightstylelist"></ul>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/pages/lightstyle.js">
+    </script>
+    <script type="text/javascript" src="~/js/pages/consoleindex.js">
+    </script>
+}
+

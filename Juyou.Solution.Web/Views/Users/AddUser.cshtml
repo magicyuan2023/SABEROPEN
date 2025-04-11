@@ -1,0 +1,151 @@
+﻿@using Juyou.Solution.Model.Models
+@using Juyou.Solution.Model;
+@model UserInfo
+@{ ViewData["Title"] = SystemSet.SystemName + "-添加用户";
+    Layout = "~/Pages/_LayoutNone.cshtml";
+    List<DistrictInfo> ProvinceList = ViewBag.ProvinceList;
+    List<UserRole> rolelist = ViewBag.userRolelist;
+    var roleOptions = "[";
+    if (rolelist != null)
+    {
+
+        foreach (var role in rolelist)
+        {
+            roleOptions += "{ name:'" + role.RoleName + "',value:" + role.Id + (Model != null && Model.RoleIds.Contains(role.Id) ? ",selected:true" : "") + "},";
+
+        }
+    }
+    roleOptions += "]";
+}
+
+@section Styles
+{
+    <style>
+
+        .layui-form-select {
+            width: 300px;
+        }
+    </style>
+}
+
+<form class="layui-form" method="post" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="UserName" value="@(Model != null ? Model.UserName : "")" required lay-verify="required|username" placeholder="请输入用户名" autocomplete="off" class="layui-input layui-form-text" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="Password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input" )" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Name" value="@(Model != null ? Model.Name : "")" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">Email</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Email" value="@(Model != null ? Model.Email : "")" lay-verify="email|required" placeholder="请输入Email" autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">区域</label>
+        <div class="layui-input-block">
+            <select class="layui-form-select" name="Region" lay-filter="Region|reuqired" lay-search>
+                @if (ProvinceList != null && ProvinceList.Count > 0)
+                {
+                    foreach (var p in ProvinceList)
+                    {
+                        <option value="@p.Id" data-id="@p.Id" @(Model != null && Model.Region == p.Id ? "selected" : "")>@p.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-inline" id="RoleId" Name="RoleId" style="width:300px"></div>
+    </div>
+    <div class="layui-form-item">
+        <div style="text-align:center">
+            <input type="hidden" id="ID" name="ID" value="@(Model != null ? Model.Id.ToString() : "")" />
+            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script type="text/javascript" src="~/layui/ext/xm-select.js"></script>
+    <script type="text/javascript">
+        var roleOptions = @{Output.Write(roleOptions);};
+
+        xmSelect.render({
+            el: "#RoleId",
+            radio:true,
+            name: "RoleId",
+            data: roleOptions
+        });
+        var form;
+        layui.use(['form', 'layer'], function () {
+            form = layui.form;
+            var layer = layui.layer;
+
+            form.verify({
+                username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                        return '用户名不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                        return '用户名首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)) {
+                        return '用户名不能全为数字';
+                    }
+                }
+                , pass: function (value, item) {
+                    var id = $("#ID").val();
+                    if (value.length > 0) {
+                        if (!(/^[\S]{6,12}$/.test(value))) {
+                            return '密码必须6到12位，且不能出现空格';
+                        }
+                    }
+                    if (id <= 0) {
+                        if (value.length == 0) {
+                            return '请设置密码';
+                        }
+                    }
+
+                }
+            });
+
+           
+            form.on('submit(*)', function (data) {
+                
+                if (data.field["RoleId"] == '') {
+                    layer.msg("角色必须选择");
+                    return false;
+                }
+                $.post('/Users/SaveUser', data.field, function (res) {
+                    if (res.code == 1) {
+                        layer.msg('保存成功', { icon: 6 });
+                        //window.parent.location.reload();
+                        window.parent.document.getElementById("btn_query").click();
+                        window.parent.layer.closeAll();
+                    } else {
+                        layer.msg(res.message, { icon: 5 });
+                    }
+                })
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+        });
+
+    </script>
+}

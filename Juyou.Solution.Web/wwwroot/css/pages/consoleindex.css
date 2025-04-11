@@ -1,0 +1,88 @@
+﻿
+
+.flow-default {
+    width: 1280px;
+    height: 100%;
+   
+}
+
+    .flow-default li {
+        display: inline-block;
+        margin: 0 5px;
+        font-size: 14px;
+        width: 24%;
+        margin-bottom: 15px;
+        background-color: white;/*
+       height:210px;*/
+    }
+    
+.card {
+    /* border-radius: 2px;*/
+    box-shadow: 0 10px 10px 0 rgba(0,0,0,0.2);
+    max-height:auto;
+    padding-bottom: 20px;
+}
+
+.flow-default img {
+    max-width: 100%;
+    max-height: auto;
+    height:80px;
+}
+
+.flow-default a {
+    padding: 10px 5px 10px 5px;
+}
+
+.image{
+    height:80px;
+}
+
+.title {
+    font-size: 16px;
+    height: 20px;
+    line-height: 15px;
+    margin: 0 auto;
+    padding: 8px 10px 0px 5px;
+    width: 96%;
+}
+.desc {
+    font-size: 14px;
+    color: rgb(106, 101, 101);
+    margin: 0 auto;
+    padding: 5px 10px 0px 10px;
+    width: 94%;
+    height: 40px;
+    line-height: 14px;
+}
+
+.owner {
+    font-size: 13px;
+    color: rgb(110,110,110);
+    margin:0 auto;
+    padding: 0 10px 0px 10px;
+    width: 90%;
+    height: 30px;
+}
+
+.operation {
+    border-top-color: rgb(240,240,240);
+    border-top-width: 2px;
+    border-top-style: solid;
+    margin: 0 auto;
+    padding: 5px 10px 5px 10px;
+    width: 90%;
+    text-align:center;
+}
+    .operation a {
+        margin-top:10px;
+        padding:10px 10px 10px 10px;
+        color: green;
+    }
+
+.left{
+    float:left;
+}
+
+.right {
+    float: right;
+}
